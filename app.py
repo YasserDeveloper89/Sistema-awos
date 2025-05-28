@@ -42,8 +42,8 @@ st.subheader("📡 Datos Meteorológicos de Estación AWOS")
 awos_data = generate_awos_data()
 df = pd.DataFrame([awos_data])
 
-# ✅ LÍNEA CORREGIDA - SIN highlight_max
-st.dataframe(df)
+# ✅ Muestra sin estilos ni errores
+st.dataframe(df, use_container_width=True)
 
 # Mostrar mensaje ATIS
 st.subheader("🛫 Mensaje ATIS Generado")
