@@ -4,9 +4,9 @@ import numpy as np
 import datetime
 import random
 
-st.set_page_config(page_title="ADR AeroWeather - Sistema AWOS", page_icon="🌤️", layout="centered")
+st.set_page_config(page_title="AeroWeather App - Sistema AWOS", page_icon="🌤️", layout="centered")
 
-st.markdown("# 🌤️ ADR AeroWeather - Sistema AWOS Simulado")
+st.markdown("# 🌤️ AeroWeather - Sistema AWOS con alertas")
 st.markdown("## 📡 Datos Meteorológicos de Estación AWOS")
 
 # ------------------ Funciones ------------------
