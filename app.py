@@ -6,7 +6,7 @@ from datetime import datetime
 # Configuración de la página
 st.set_page_config(page_title="AeroWeather App", layout="wide")
 
-st.title("🌤️ AeroWeather - Sistema AWOS/ATI")
+st.title("🌤️ AeroWeather App - Sistema AWOS/ATI")
 
 # Función para simular datos AWOS
 def generate_awos_data():
