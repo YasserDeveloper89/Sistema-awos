@@ -51,4 +51,3 @@ atis = generar_atis(awos_data)
 st.code(atis)
 
 # Pie de página
-st.info("Esta es una simulación profesional del sistema AWOS/ATIS basada en las soluciones de ADR Technology S.A.C.")
