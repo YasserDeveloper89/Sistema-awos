@@ -1,53 +1,61 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from datetime import datetime
+import datetime
+import random
 
-# Configuración de la página
-st.set_page_config(page_title="AeroWeather App", layout="wide")
+st.set_page_config(page_title="ADR AeroWeather - Sistema AWOS", page_icon="🌤️", layout="centered")
 
-st.title("🌤️ AeroWeather App - Sistema AWOS/ATI en tiempo real")
+st.markdown("# 🌤️ ADR AeroWeather - Sistema AWOS Simulado")
+st.markdown("## 📡 Datos Meteorológicos de Estación AWOS")
 
-# Función para simular datos AWOS
-def generate_awos_data():
-    now = datetime.utcnow()
+# ------------------ Funciones ------------------
+
+def generar_datos_awos():
     return {
-        "Hora UTC": now.strftime("%H:%M:%S"),
-        "Temperatura (°C)": round(np.random.uniform(15, 30), 1),
-        "Humedad (%)": round(np.random.uniform(40, 90), 1),
-        "Presión (hPa)": round(np.random.uniform(1000, 1020), 1),
-        "Viento (km/h)": round(np.random.uniform(5, 25), 1),
-        "Dirección del Viento (°)": round(np.random.uniform(0, 360), 1),
-        "Visibilidad (km)": round(np.random.uniform(5, 10), 1),
-        "Altura de Nube (pies)": int(np.random.uniform(1000, 5000)),
-        "Condición del Cielo": np.random.choice(["Despejado", "Nublado", "Lluvia Ligera", "Neblina"])
+        "Hora UTC": datetime.datetime.utcnow().strftime("%H:%M:%S"),
+        "Temperatura (°C)": round(random.uniform(-5, 40), 1),
+        "Humedad (%)": random.randint(10, 100),
+        "Presión (hPa)": round(random.uniform(980, 1030), 1),
+        "Visibilidad (m)": random.randint(50, 10000),
+        "Velocidad Viento (kt)": random.randint(0, 40),
+        "Dirección Viento (°)": random.choice([0, 45, 90, 135, 180, 225, 270, 315])
     }
 
-# Función para generar mensaje ATIS
-def generar_atis(data):
-    return f"""
-Información ATIS Simulada:
-Hora: {data['Hora UTC']} UTC
-Viento: {data['Dirección del Viento (°)']}° a {data['Viento (km/h)']} km/h
-Visibilidad: {data['Visibilidad (km)']} km
-Condición: {data['Condición del Cielo']}
-Temperatura: {data['Temperatura (°C)']} °C
-Humedad: {data['Humedad (%)']}%
-Presión: {data['Presión (hPa)']} hPa
-Altura de Nube: {data['Altura de Nube (pies)']} pies
-""".strip()
+def generar_dataframe(filas=10):
+    data = [generar_datos_awos() for _ in range(filas)]
+    return pd.DataFrame(data)
 
-# Mostrar datos AWOS
-st.subheader("📡 Datos Meteorológicos de Estación AWOS")
-awos_data = generate_awos_data()
-df = pd.DataFrame([awos_data])
+def detectar_alertas(df):
+    alertas = []
+    for index, row in df.iterrows():
+        if row["Visibilidad (m)"] < 800:
+            alertas.append((index, "🌫️ Baja visibilidad (<800 m)"))
+        if row["Velocidad Viento (kt)"] > 30:
+            alertas.append((index, "🌪️ Viento fuerte (>30 kt)"))
+        if row["Presión (hPa)"] < 985:
+            alertas.append((index, "🌧️ Presión atmosférica baja"))
+        if row["Temperatura (°C)"] < -3 or row["Temperatura (°C)"] > 38:
+            alertas.append((index, "🔥 Temperatura extrema"))
 
-# ✅ Muestra sin estilos ni errores
-st.dataframe(df, use_container_width=True)
+    return alertas
 
-# Mostrar mensaje ATIS
-st.subheader("🛫 Mensaje ATIS Generado")
-atis = generar_atis(awos_data)
-st.code(atis)
+def mostrar_alertas(alertas, df):
+    if alertas:
+        st.warning("⚠️ **Alertas Meteorológicas Detectadas**:")
+        for idx, mensaje in alertas:
+            st.markdown(f"- 🔎 {df['Hora UTC'][idx]} — {mensaje}")
+    else:
+        st.success("✅ Condiciones meteorológicas estables en todas las estaciones simuladas.")
+
+# ------------------ UI Principal ------------------
+
+df = generar_dataframe()
+st.dataframe(df)
+
+alertas = detectar_alertas(df)
+mostrar_alertas(alertas, df)
 
 # Pie de página
+st.markdown("---")
+st.caption("Sistema simulado para demostración técnica | Desarrollado con ❤️ en Streamlit")
