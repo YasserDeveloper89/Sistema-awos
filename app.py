@@ -4,9 +4,9 @@ import numpy as np
 from datetime import datetime
 
 # Configuración de la página
-st.set_page_config(page_title="ADR AeroWeather", layout="wide")
+st.set_page_config(page_title="AeroWeather App", layout="wide")
 
-st.title("🌤️ ADR AeroWeather - Sistema AWOS Simulado")
+st.title("🌤️ AeroWeather - Sistema AWOS/ATI")
 
 # Función para simular datos AWOS
 def generate_awos_data():
