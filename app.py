@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -42,7 +41,9 @@ Altura de Nube: {data['Altura de Nube (pies)']} pies
 st.subheader("📡 Datos Meteorológicos de Estación AWOS")
 awos_data = generate_awos_data()
 df = pd.DataFrame([awos_data])
-st.dataframe(df.style.highlight_max(axis=1))
+
+# ✅ Línea corregida
+st.dataframe(df)  # Muestra sin estilos avanzados
 
 # Mostrar mensaje ATIS
 st.subheader("🛫 Mensaje ATIS Generado")
