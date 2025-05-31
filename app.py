@@ -4,9 +4,9 @@ import numpy as np
 import datetime
 import random
 
-st.set_page_config(page_title="AeroWeather App - Sistema AWOS", page_icon="🌤️", layout="centered")
+st.set_page_config(page_title="AeroWeather - Sistema AWOS", page_icon="🌤️", layout="centered")
 
-st.markdown("# 🌀 AeroWeather - Sistema AWOS/ATI con alertas en tiempo real")
+st.markdown("# 🌐 AeroWeather - Sistema AWOS/ATI con alertas en tiempo real")
 st.markdown("## 📈 Datos Meteorológicos de estaciones AWOS/ATI")
 
 # ------------------ Funciones ------------------
