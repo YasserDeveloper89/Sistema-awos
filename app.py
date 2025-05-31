@@ -7,7 +7,7 @@ import random
 st.set_page_config(page_title="AeroWeather App - Sistema AWOS", page_icon="🌤️", layout="centered")
 
 st.markdown("# 🌀 AeroWeather - Sistema AWOS/ATI con alertas en tiempo real")
-st.markdown("## 📡 Datos Meteorológicos de Estación AWOS/ATI")
+st.markdown("## 📈 Datos Meteorológicos de estaciones AWOS/ATI")
 
 # ------------------ Funciones ------------------
 
